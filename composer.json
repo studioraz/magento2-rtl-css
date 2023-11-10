@@ -1,0 +1,17 @@
+{
+    "name": "studioraz/magento2-rtl-css",
+    "description": "Magento 2 RTL CSS",
+    "type": "magento2-module",
+    "require": {
+        "php": "^8.1",
+        "magento/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SR\\RTLCss\\": "src"
+        },
+        "files": [
+            "src/registration.php"
+        ]
+    }
+}
