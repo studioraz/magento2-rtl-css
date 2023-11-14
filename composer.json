@@ -2,6 +2,10 @@
     "name": "studioraz/magento2-rtl-css",
     "description": "Magento 2 RTL CSS",
     "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "proprietary"
+    ],
     "require": {
         "php": "^8.1",
         "magento/framework": "*"
@@ -13,5 +17,21 @@
         "files": [
             "src/registration.php"
         ]
-    }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "npm install --prefix ./src"
+        ]
+    },
+    "support": {
+        "email": "support@studioraz.co.il"
+    },
+    "authors": [
+        {
+            "name": "Studio Raz",
+            "email": "info@studioraz.co.il",
+            "homepage": "https://www.studio-raz.com",
+            "role": "Developer"
+        }
+    ]
 }

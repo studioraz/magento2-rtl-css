@@ -1,23 +1,14 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-
     <virtualType name="AssetPreProcessorPool">
         <arguments>
             <argument name="preprocessors" xsi:type="array">
                 <item name="css" xsi:type="array">
                     <item name="rtl_css" xsi:type="array">
-                        <item name="class" xsi:type="string">SR\RTLCss\Model\Css\Processor\CustomPreprocessor</item>
+                        <item name="class" xsi:type="string">SR\RTLCss\Model\Css\Processor\RtlCssPreprocessor</item>
                     </item>
                 </item>
             </argument>
         </arguments>
     </virtualType>
-    <type name="Magento\Framework\Console\CommandList">
-        <arguments>
-            <argument name="commands" xsi:type="array">
-                <item name="studioraz_rtl_css_npm" xsi:type="object">SR\RTLCss\Console\Command\NpmInstallCommand</item>
-                <item name="studioraz_rtl_css_rtlcss" xsi:type="object">SR\RTLCss\Console\Command\RtlCssCommand</item>
-            </argument>
-        </arguments>
-    </type>
 </config>
