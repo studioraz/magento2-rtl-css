@@ -19,13 +19,14 @@ class RtlCssPreprocessor implements PreProcessorInterface
 {
     public const TMP_RTLCSS_PREPROCESS_DIR = 'rtlcss';
 
+    // INFO: commented out style{.min}.css for exclude Hyva tailwind styles from RTL CSS
     protected $cssFileNames = [
         'css/styles-m.css',
         'css/styles-m.min.css',
         'css/styles-l.css',
         'css/styles-l.min.css',
-        'css/styles.css',
-        'css/styles.min.css',
+//        'css/styles.css',
+//        'css/styles.min.css',
         'css/email.css'
     ];
 
