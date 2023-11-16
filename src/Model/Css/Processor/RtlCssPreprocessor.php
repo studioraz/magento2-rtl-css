@@ -25,6 +25,7 @@ class RtlCssPreprocessor implements PreProcessorInterface
         'css/styles-l.css',
         'css/styles-l.min.css',
         'css/styles.css',
+        'css/styles.min.css',
         'css/email.css'
     ];
 
