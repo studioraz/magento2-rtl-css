@@ -6,13 +6,13 @@
 
 namespace SR\RTLCss\Model\Css\Processor;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
+use Magento\Framework\View\Asset\ContextInterface;
 use Magento\Framework\View\Asset\PreProcessor\Chain;
 use Magento\Framework\View\Asset\PreProcessorInterface;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\View\Asset\ContextInterface;
 use SR\RTLCss\Service\RtlCssHandler;
 
 class RtlCssPreprocessor implements PreProcessorInterface
@@ -27,7 +27,8 @@ class RtlCssPreprocessor implements PreProcessorInterface
         'css/styles-l.min.css',
 //        'css/styles.css',
 //        'css/styles.min.css',
-        'css/email.css'
+        'css/email.css',
+        'css/email-inline.css'
     ];
 
     /**
@@ -37,8 +38,7 @@ class RtlCssPreprocessor implements PreProcessorInterface
     public function __construct(
         private readonly Filesystem $filesystem,
         private readonly RtlCssHandler $rtlCssHandler
-    ) {
-    }
+    ) {}
 
     /**
      * @param Chain $chain
@@ -102,7 +102,8 @@ class RtlCssPreprocessor implements PreProcessorInterface
             try {
                 // Delete the temporary file
                 $ioAdapter->delete($fileNameWithPath);
-            } catch (FileSystemException $e) {}
+            } catch (FileSystemException $e) {
+            }
         }
     }
 
@@ -118,7 +119,8 @@ class RtlCssPreprocessor implements PreProcessorInterface
             $ioAdapter = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
             $ioAdapter->create(self::TMP_RTLCSS_PREPROCESS_DIR);
             $ioAdapter->writeFile($filename, $content);
-        } catch (\Exception | FileSystemException $e) {}
+        } catch (\Exception|FileSystemException $e) {
+        }
         return $ioAdapter;
     }
 
