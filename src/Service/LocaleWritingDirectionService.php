@@ -1,15 +1,15 @@
 <?php
 /**
- * Copyright © 2023 Studio Raz. All rights reserved.
+ * Copyright © 2024 Studio Raz. All rights reserved.
  * See LICENSE for license details.
  */
 declare(strict_types=1);
 
-namespace SR\RTLCss\Model;
+namespace SR\RTLCss\Service;
 
 use Magento\Framework\Locale\Resolver;
 
-class RtlManager
+class LocaleWritingDirectionService
 {
     public const HTML_ATTRIBUTE_DIR = 'dir';
     public const HTML_ATTRIBUTE_DIR_VALUE_RTL = 'rtl';
