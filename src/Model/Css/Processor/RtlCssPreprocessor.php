@@ -1,15 +1,13 @@
 <?php
 /*
- * Copyright © 2023 Studio Raz. All rights reserved.
+ * Copyright © 2024 Studio Raz. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 namespace SR\RTLCss\Model\Css\Processor;
 
-use Magento\Framework\App\Filesystem\DirectoryList;
+use Exception;
 use Magento\Framework\Exception\FileSystemException;
-use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Directory\WriteInterface;
 use Magento\Framework\View\Asset\ContextInterface;
 use Magento\Framework\View\Asset\PreProcessor\Chain;
 use Magento\Framework\View\Asset\PreProcessorInterface;
@@ -17,10 +15,8 @@ use SR\RTLCss\Service\RtlCssHandler;
 
 class RtlCssPreprocessor implements PreProcessorInterface
 {
-    public const TMP_RTLCSS_PREPROCESS_DIR = 'rtlcss';
-
     // INFO: commented out style{.min}.css for exclude Hyva tailwind styles from RTL CSS
-    protected $cssFileNames = [
+    protected array $cssFileNames = [
         'css/styles-m.css',
         'css/styles-m.min.css',
         'css/styles-l.css',
@@ -32,20 +28,22 @@ class RtlCssPreprocessor implements PreProcessorInterface
     ];
 
     /**
-     * @param Filesystem $filesystem
      * @param RtlCssHandler $rtlCssHandler
      */
     public function __construct(
-        private readonly Filesystem $filesystem,
         private readonly RtlCssHandler $rtlCssHandler
-    ) {}
+    ) {
+    }
 
     /**
      * @param Chain $chain
+     *
      * @return void
+     *
      * @throws FileSystemException
+     * @throws Exception
      */
-    public function process(Chain $chain)
+    public function process(Chain $chain): void
     {
         /**
          * context
@@ -86,51 +84,18 @@ class RtlCssPreprocessor implements PreProcessorInterface
             $this->isNeedToRtl($asset->getFilePath())
         ) {
             $content = $chain->getContent();
-            $fileNameWithPath = self::TMP_RTLCSS_PREPROCESS_DIR . DIRECTORY_SEPARATOR . $this->createFileName();
-            $ioAdapter = $this->writeCssToFile($fileNameWithPath, $content);
-            $process = $this->rtlCssHandler->executeRtlCssCommand($ioAdapter->getAbsolutePath($fileNameWithPath));
+            $process = $this->rtlCssHandler->executeRtlCssCommand($content);
 
             if ($process->isSuccessful()) {
-                // Get the RTL-converted content from the temporary file
-                $rtlContent = $ioAdapter->readFile($fileNameWithPath);
+                // Get the RTL-converted content from the process output
+                $rtlContent = $process->getOutput();
+
                 // Set the new RTL content into the chain
                 $chain->setContent($rtlContent);
             } else {
-                throw new \Exception('RTL conversion failed: ' . $process->getErrorOutput());
-            }
-
-            try {
-                // Delete the temporary file
-                $ioAdapter->delete($fileNameWithPath);
-            } catch (FileSystemException $e) {
+                throw new Exception('RTL conversion failed: ' . $process->getErrorOutput());
             }
         }
-    }
-
-    /**
-     * @param string $filename
-     * @param string $content
-     * @return WriteInterface
-     */
-    protected function writeCssToFile(string $filename, string $content): WriteInterface
-    {
-        // Create temporary CSS file under var/rtlcss directory
-        try {
-            $ioAdapter = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
-            $ioAdapter->create(self::TMP_RTLCSS_PREPROCESS_DIR);
-            $ioAdapter->writeFile($filename, $content);
-        } catch (\Exception|FileSystemException $e) {
-        }
-        return $ioAdapter;
-    }
-
-    /**
-     * @return string
-     */
-    protected function createFileName(): string
-    {
-        $time = time();
-        return 'rtlcss-' . $time . '.css';
     }
 
     /**

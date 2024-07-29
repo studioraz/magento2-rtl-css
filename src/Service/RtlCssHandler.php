@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright © 2023 Studio Raz. All rights reserved.
+ * Copyright © 2024 Studio Raz. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -30,21 +30,24 @@ class RtlCssHandler
     }
 
     /**
-     * @param $fileNameWithPath
+     * @param string $cssContent
+     *
      * @return Process
      */
-    public function executeRtlCssCommand($fileNameWithPath): Process
+    public function executeRtlCssCommand($cssContent): Process
     {
         $rootDir = $this->getRootDir();
 
         // Transform the CSS to RTL using the 'rtlcss' command
-        /** @var  \Symfony\Component\Process\Process $process */
+        /** @var  Process $process */
         $process = $this->processFactory->create([
-            'command' => ['npx', 'rtlcss', $fileNameWithPath, $fileNameWithPath],
+            'command' => ['npx', 'rtlcss', '--stdin'],
             'cwd' => $rootDir
         ]);
 
-        $process->run();
+        $process->setInput($cssContent);
+        $process->mustRun();
+
         return $process;
     }
 
@@ -56,7 +59,7 @@ class RtlCssHandler
     {
         $rootDir = $this->getRootDir();
         if (!$this->file->isExists($rootDir . DIRECTORY_SEPARATOR . self::RTL_FILE_PATH)) {
-           $this->installRtlCss();
+            $this->installRtlCss();
         }
     }
 
