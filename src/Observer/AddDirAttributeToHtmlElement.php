@@ -1,8 +1,9 @@
 <?php
 /**
- * Copyright © 2024 Studio Raz. All rights reserved.
+ * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
  */
+
 declare(strict_types=1);
 
 namespace SR\RTLCss\Observer;

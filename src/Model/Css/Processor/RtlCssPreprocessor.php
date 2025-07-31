@@ -1,7 +1,7 @@
 <?php
-/*
- * Copyright © 2024 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/**
+ * Copyright © 2025 Studio Raz. All rights reserved.
+ * See LICENSE for license details.
  */
 
 namespace SR\RTLCss\Model\Css\Processor;

@@ -1,8 +1,9 @@
 <?php
 /**
- * Copyright © 2024 Studio Raz. All rights reserved.
+ * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
  */
+
 declare(strict_types=1);
 
 namespace SR\RTLCss\Service;
@@ -15,12 +16,22 @@ class LocaleWritingDirectionService
     public const HTML_ATTRIBUTE_DIR_VALUE_RTL = 'rtl';
     public const HTML_ATTRIBUTE_DIR_VALUE_LTR = 'ltr';
 
-    protected Resolver $localeResolver;
+    /**
+     * @see \Magento\Framework\Locale\Config::$_allowedLocales
+     */
+    public const RTL_LANGUAGES = [
+        'ar_DZ', // Arabic (Algeria)
+        'ar_EG', // Arabic (Egypt)
+        'ar_KW', // Arabic (Kuwait)
+        'ar_MA', // Arabic (Morocco)
+        'ar_SA', // Arabic (Saudi Arabia)
+        'fa_IR', // Persian (Iran)
+        'he_IL', // Hebrew (Israel)
+    ];
 
     public function __construct(
-        Resolver $localeResolver
+        protected Resolver $localeResolver
     ) {
-        $this->localeResolver = $localeResolver;
     }
 
     public function getStoreViewContentDirection(): string
@@ -41,29 +52,18 @@ class LocaleWritingDirectionService
     {
         $rtlLanguages = $this->getRtlLanguagesList();
 
-        return in_array($languageCode, $rtlLanguages) ? self::HTML_ATTRIBUTE_DIR_VALUE_RTL : self::HTML_ATTRIBUTE_DIR_VALUE_LTR;
+        return in_array($languageCode, $rtlLanguages, true) ? self::HTML_ATTRIBUTE_DIR_VALUE_RTL : self::HTML_ATTRIBUTE_DIR_VALUE_LTR;
     }
 
     public function isContentDirectionRtlByLanguageCode(string $languageCode): bool
     {
-        return $this->getContentDirectionByLanguageCode($languageCode) === self::HTML_ATTRIBUTE_DIR_VALUE_RTL;
+        $rtlLanguages = $this->getRtlLanguagesList();
+
+        return in_array($languageCode, $rtlLanguages, true);
     }
 
     public function getRtlLanguagesList(): array
     {
-        return [
-            'ar_SA',
-            'arc_SY',
-            'dv_MV',
-            'fa_IR',
-            'he_IL',
-            'ku_IQ',
-            'ps_AF',
-            'sam_IL',
-            'tzm_MA',
-            'ug_CN',
-            'ur_PK',
-            'yi_IL'
-        ];
+        return self::RTL_LANGUAGES;
     }
 }

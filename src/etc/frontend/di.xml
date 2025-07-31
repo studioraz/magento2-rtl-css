@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2025 Studio Raz. All rights reserved.
+ * See LICENSE for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Hyva\Theme\ViewModel\SvgIcons">
+        <plugin name="rtl-icons" type="SR\RTLCss\Plugin\Hyva\Theme\ViewModel\SvgIconsPlugin"/>
+    </type>
+</config>
