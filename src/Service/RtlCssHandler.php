@@ -1,11 +1,12 @@
 <?php
-/*
- * Copyright © 2024 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/**
+ * Copyright © 2025 Studio Raz. All rights reserved.
+ * See LICENSE for license details.
  */
 
 namespace SR\RTLCss\Service;
 
+use Magento\Framework\Exception\FileSystemException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessFactory;
 use Magento\Framework\Module\Dir;
@@ -53,7 +54,7 @@ class RtlCssHandler
 
     /**
      * @return void
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws FileSystemException
      */
     public function validateIsRtlCssInstalled()
     {
