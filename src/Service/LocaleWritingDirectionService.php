@@ -16,6 +16,8 @@ class LocaleWritingDirectionService
     public const HTML_ATTRIBUTE_DIR_VALUE_RTL = 'rtl';
     public const HTML_ATTRIBUTE_DIR_VALUE_LTR = 'ltr';
 
+
+
     /**
      * @see \Magento\Framework\Locale\Config::$_allowedLocales
      */
@@ -29,6 +31,15 @@ class LocaleWritingDirectionService
         'he_IL', // Hebrew (Israel)
     ];
 
+    public const CSS_FILE_PATHS = [
+        'css/styles-m.css',
+        'css/styles-m.min.css',
+        'css/styles-l.css',
+        'css/styles-l.min.css',
+        'css/email.css',
+        'css/email-inline.css'
+    ];
+
     public function __construct(
         protected Resolver $localeResolver
     ) {
@@ -38,32 +49,23 @@ class LocaleWritingDirectionService
     {
         $storeLang = $this->localeResolver->getLocale();
 
-        return $this->getContentDirectionByLanguageCode($storeLang);
+        return $this->isRtlLanguage($storeLang) ? self::HTML_ATTRIBUTE_DIR_VALUE_RTL : self::HTML_ATTRIBUTE_DIR_VALUE_LTR;
     }
 
     public function isStoreViewContentDirectionRtl(): bool
     {
         $storeLang = $this->localeResolver->getLocale();
 
-        return $this->isContentDirectionRtlByLanguageCode($storeLang);
+        return $this->isRtlLanguage($storeLang);
     }
 
-    public function getContentDirectionByLanguageCode(string $languageCode): string
+    public function isRtlLanguage(string $languageCode): bool
     {
-        $rtlLanguages = $this->getRtlLanguagesList();
-
-        return in_array($languageCode, $rtlLanguages, true) ? self::HTML_ATTRIBUTE_DIR_VALUE_RTL : self::HTML_ATTRIBUTE_DIR_VALUE_LTR;
+        return in_array($languageCode, self::RTL_LANGUAGES, true);
     }
 
-    public function isContentDirectionRtlByLanguageCode(string $languageCode): bool
+    public function shouldProcessFile(string $filePath): bool
     {
-        $rtlLanguages = $this->getRtlLanguagesList();
-
-        return in_array($languageCode, $rtlLanguages, true);
-    }
-
-    public function getRtlLanguagesList(): array
-    {
-        return self::RTL_LANGUAGES;
+        return in_array($filePath, self::CSS_FILE_PATHS, true);
     }
 }

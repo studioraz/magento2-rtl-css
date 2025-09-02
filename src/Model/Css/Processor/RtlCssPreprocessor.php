@@ -11,27 +11,18 @@ use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\View\Asset\ContextInterface;
 use Magento\Framework\View\Asset\PreProcessor\Chain;
 use Magento\Framework\View\Asset\PreProcessorInterface;
+use SR\RTLCss\Service\LocaleWritingDirectionService;
 use SR\RTLCss\Service\RtlCssHandler;
 
 class RtlCssPreprocessor implements PreProcessorInterface
 {
-    // INFO: commented out style{.min}.css for exclude Hyva tailwind styles from RTL CSS
-    protected array $cssFileNames = [
-        'css/styles-m.css',
-        'css/styles-m.min.css',
-        'css/styles-l.css',
-        'css/styles-l.min.css',
-//        'css/styles.css',
-//        'css/styles.min.css',
-        'css/email.css',
-        'css/email-inline.css'
-    ];
 
     /**
      * @param RtlCssHandler $rtlCssHandler
      */
     public function __construct(
-        private readonly RtlCssHandler $rtlCssHandler
+        private readonly RtlCssHandler $rtlCssHandler,
+        private readonly LocaleWritingDirectionService $localeWritingDirectionService
     ) {
     }
 
@@ -79,10 +70,7 @@ class RtlCssPreprocessor implements PreProcessorInterface
 
         $this->rtlCssHandler->validateIsRtlCssInstalled();
 
-        if ($context->getLocale() === 'he_IL' &&
-            $context->getAreaCode() == 'frontend' &&
-            $this->isNeedToRtl($asset->getFilePath())
-        ) {
+        if ($this->shouldProcessFile($context, $asset->getFilePath())) {
             $content = $chain->getContent();
             $process = $this->rtlCssHandler->executeRtlCssCommand($content);
 
@@ -99,11 +87,16 @@ class RtlCssPreprocessor implements PreProcessorInterface
     }
 
     /**
-     * @param $currentCssFileName
+     * Determines if the current asset should be processed for RTL.
+     *
+     * @param ContextInterface $context
+     * @param string $cssFilePath
      * @return bool
      */
-    protected function isNeedToRtl($currentCssFileName): bool
+    public function shouldProcessFile(ContextInterface $context, string $cssFilePath): bool
     {
-        return in_array($currentCssFileName, $this->cssFileNames);
+        return $context->getAreaCode() === 'frontend'
+            && $this->localeWritingDirectionService->isRtlLanguage($context->getLocale())
+            && $this->localeWritingDirectionService->shouldProcessFile($cssFilePath);
     }
 }
