@@ -93,7 +93,7 @@ class RtlCssPreprocessor implements PreProcessorInterface
      * @param string $cssFilePath
      * @return bool
      */
-    public function shouldProcessFile(\ContextInterface $context, string $cssFilePath): bool
+    public function shouldProcessFile(ContextInterface $context, string $cssFilePath): bool
     {
         return $context->getAreaCode() === 'frontend'
             && $this->localeWritingDirectionService->isRtlLanguage($context->getLocale())
