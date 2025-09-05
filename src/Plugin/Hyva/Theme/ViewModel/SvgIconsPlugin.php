@@ -26,20 +26,24 @@ class SvgIconsPlugin
         ?int $height = 24,
         array $attributes = []
     ): array {
-        if ($this->isApplicable($icon, $attributes) && $rtlIcon = $this->getRtlIconName($icon)) {
+        if ($this->isApplicable($icon, $classNames) && $rtlIcon = $this->getRtlIconName($icon)) {
             $icon = $rtlIcon;
         }
 
         return [$icon, $classNames, $width, $height, $attributes];
     }
 
-    public function isApplicable(string $icon, array $attributes): bool
+    public function isApplicable(string $icon, string $classNames): bool
     {
         if (!$this->rtlManager->isStoreViewContentDirectionRtl()) {
             return false;
         }
 
         if (!str_contains($icon, 'left') && !str_contains($icon, 'right')) {
+            return false;
+        }
+
+        if (str_contains($classNames, 'rtl:rotate-180')) {
             return false;
         }
 
