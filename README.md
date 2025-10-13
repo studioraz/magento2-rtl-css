@@ -41,10 +41,3 @@ Ensure that Node.js is available on your system, as it is required for the rtlcs
 Usage
 	•	The module works automatically for supported locales.
 	•	No manual configuration is required; CSS conversion and HTML direction adjustment are handled transparently.
-
-
-⸻
-
-For more details, see the source code in the src directory.
-
-Would you like me to also generate a short **Composer package description** (for `composer.json`) to match this README?
