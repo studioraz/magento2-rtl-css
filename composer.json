@@ -2,7 +2,6 @@
     "name": "studioraz/magento2-rtl-css",
     "description": "Magento 2 RTL CSS",
     "type": "magento2-module",
-    "version": "1.6.1",
     "license": [
         "proprietary"
     ],
@@ -30,7 +29,7 @@
         {
             "name": "Studio Raz",
             "email": "info@studioraz.co.il",
-            "homepage": "https://www.studio-raz.com",
+            "homepage": "https://studioraz.co.il",
             "role": "Developer"
         }
     ]
