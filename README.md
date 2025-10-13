@@ -1,5 +1,3 @@
-Here’s the full README.md file content, ready to save directly as README.md:
-
 # Magento 2 RTL CSS Extension
 
 This repository provides a Magento 2 module for automatic Right-to-Left (RTL) CSS processing, enabling support for RTL languages and layouts in Magento 2 storefronts.
