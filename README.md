@@ -29,7 +29,7 @@ This repository provides a Magento 2 module for automatic Right-to-Left (RTL) CS
 Install the module via Composer:
 
 ```bash
-composer require studioraz/module-rtlcss
+composer require studioraz/magento2-rtlcss
 ```
 Then enable and update the module:
 ```bash
