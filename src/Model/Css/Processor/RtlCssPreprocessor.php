@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
@@ -16,15 +19,13 @@ use SR\RTLCss\Service\RtlCssHandler;
 
 class RtlCssPreprocessor implements PreProcessorInterface
 {
-
     /**
      * @param RtlCssHandler $rtlCssHandler
      */
     public function __construct(
-        private readonly RtlCssHandler $rtlCssHandler,
-        private readonly LocaleWritingDirectionService $localeWritingDirectionService
-    ) {
-    }
+        private readonly RtlCssHandler $_rtlCssHandler,
+        private readonly LocaleWritingDirectionService $_localeWritingDirectionService,
+    ) {}
 
     /**
      * @param Chain $chain
@@ -95,8 +96,10 @@ class RtlCssPreprocessor implements PreProcessorInterface
      */
     public function shouldProcessFile(ContextInterface $context, string $cssFilePath): bool
     {
-        return $context->getAreaCode() === 'frontend'
+        return (
+            $context->getAreaCode() === 'frontend'
             && $this->localeWritingDirectionService->isRtlLanguage($context->getLocale())
-            && $this->localeWritingDirectionService->shouldProcessFile($cssFilePath);
+            && $this->localeWritingDirectionService->shouldProcessFile($cssFilePath)
+        );
     }
 }

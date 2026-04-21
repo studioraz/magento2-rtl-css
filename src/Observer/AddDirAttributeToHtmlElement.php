@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
@@ -20,7 +21,7 @@ class AddDirAttributeToHtmlElement implements ObserverInterface
 
     public function __construct(
         Config $pageConfig,
-        LocaleWritingDirectionService $rtlManager
+        LocaleWritingDirectionService $rtlManager,
     ) {
         $this->pageConfig = $pageConfig;
         $this->rtlManager = $rtlManager;
@@ -33,7 +34,7 @@ class AddDirAttributeToHtmlElement implements ObserverInterface
         $this->pageConfig->setElementAttribute(
             Config::ELEMENT_TYPE_HTML,
             LocaleWritingDirectionService::HTML_ATTRIBUTE_DIR,
-            $direction
+            $direction,
         );
     }
 }

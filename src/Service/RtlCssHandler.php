@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
@@ -7,10 +10,10 @@
 namespace SR\RTLCss\Service;
 
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Filesystem\Driver\File;
+use Magento\Framework\Module\Dir;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessFactory;
-use Magento\Framework\Module\Dir;
-use Magento\Framework\Filesystem\Driver\File;
 
 class RtlCssHandler
 {
@@ -26,9 +29,8 @@ class RtlCssHandler
     public function __construct(
         private readonly ProcessFactory $processFactory,
         private readonly Dir $moduleDir,
-        private readonly File $file
-    ) {
-    }
+        private readonly File $file,
+    ) {}
 
     /**
      * @param string $cssContent
@@ -43,7 +45,7 @@ class RtlCssHandler
         /** @var  Process $process */
         $process = $this->processFactory->create([
             'command' => ['npx', 'rtlcss', '--stdin'],
-            'cwd' => $rootDir
+            'cwd' => $rootDir,
         ]);
 
         $process->setInput($cssContent);
@@ -74,7 +76,7 @@ class RtlCssHandler
         /** @var Process $process */
         $process = $this->processFactory->create([
             'command' => ['npm', 'install'],
-            'cwd' => $rootDir
+            'cwd' => $rootDir,
         ]);
 
         $process->run();

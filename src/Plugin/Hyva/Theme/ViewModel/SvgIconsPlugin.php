@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
@@ -14,19 +15,18 @@ use SR\RTLCss\Service\LocaleWritingDirectionService;
 class SvgIconsPlugin
 {
     public function __construct(
-        protected LocaleWritingDirectionService $rtlManager
-    ) {
-    }
+        protected LocaleWritingDirectionService $rtlManager,
+    ) {}
 
     public function beforeRenderHtml(
-        SvgIcons $subject,
+        SvgIcons $_subject,
         string $icon,
         string $classNames = '',
         ?int $width = 24,
         ?int $height = 24,
-        array $attributes = []
+        array $attributes = [],
     ): array {
-        if ($this->isApplicable($icon, $classNames) && $rtlIcon = $this->getRtlIconName($icon)) {
+        if ($this->isApplicable($icon, $classNames) && ($rtlIcon = $this->getRtlIconName($icon))) {
             $icon = $rtlIcon;
         }
 

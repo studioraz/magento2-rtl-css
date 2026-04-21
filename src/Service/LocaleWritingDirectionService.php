@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © 2025 Studio Raz. All rights reserved.
  * See LICENSE for license details.
@@ -15,8 +16,6 @@ class LocaleWritingDirectionService
     public const HTML_ATTRIBUTE_DIR = 'dir';
     public const HTML_ATTRIBUTE_DIR_VALUE_RTL = 'rtl';
     public const HTML_ATTRIBUTE_DIR_VALUE_LTR = 'ltr';
-
-
 
     /**
      * @see \Magento\Framework\Locale\Config::$_allowedLocales
@@ -37,19 +36,20 @@ class LocaleWritingDirectionService
         'css/styles-l.css',
         'css/styles-l.min.css',
         'css/email.css',
-        'css/email-inline.css'
+        'css/email-inline.css',
     ];
 
     public function __construct(
-        protected Resolver $localeResolver
-    ) {
-    }
+        protected Resolver $localeResolver,
+    ) {}
 
     public function getStoreViewContentDirection(): string
     {
         $storeLang = $this->localeResolver->getLocale();
 
-        return $this->isRtlLanguage($storeLang) ? self::HTML_ATTRIBUTE_DIR_VALUE_RTL : self::HTML_ATTRIBUTE_DIR_VALUE_LTR;
+        return $this->isRtlLanguage($storeLang)
+            ? self::HTML_ATTRIBUTE_DIR_VALUE_RTL
+            : self::HTML_ATTRIBUTE_DIR_VALUE_LTR;
     }
 
     public function isStoreViewContentDirectionRtl(): bool
