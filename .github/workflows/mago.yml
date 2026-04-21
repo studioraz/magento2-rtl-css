@@ -1,7 +1,6 @@
 name: Mago Code Quality
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
 
