@@ -1,0 +1,32 @@
+name: Mago Code Quality
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  mago:
+    name: Run Mago Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP with Composer cache
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3" # Or your project's version
+          coverage: none
+          tools: composer
+        env:
+          COMPOSER_ALLOW_SUPERUSER: 1
+
+      - name: Setup Mago
+        uses: nhedger/setup-mago@v1
+
+      - name: Run Mago
+        run: |
+          mago format --dry-run
+          mago lint
+          mago analyze
