@@ -1,0 +1,52 @@
+# Welcome to Mago!
+# For full documentation, see https://mago.carthage.software/tools/overview
+version = "1"
+php-version = "8.1.0"
+
+[source]
+workspace = "."
+paths = ["src"]
+includes = ["vendor"]
+excludes = []
+
+[source.glob]
+literal-separator = true
+
+[formatter]
+print-width = 120
+tab-width = 4
+use-tabs = false
+preserve-breaking-member-access-chain = true
+preserve-breaking-member-access-chain-first-method-on-same-line = true
+preserve-breaking-argument-list = true
+preserve-breaking-array-like = true
+preserve-breaking-parameter-list = true
+preserve-breaking-attribute-list = true
+preserve-breaking-conditional-expression = true
+preserve-breaking-condition-expression = true
+preserve-redundant-logical-binary-expression-parentheses = true
+
+[linter]
+integrations = ["magento"]
+
+[linter.rules]
+ambiguous-function-call = { enabled = false }
+literal-named-argument = { enabled = false }
+halstead = { effort-threshold = 7000 }
+
+[analyzer]
+plugins = []
+find-unused-definitions = true
+find-unused-expressions = true
+analyze-dead-code = true
+memoize-properties = true
+allow-possibly-undefined-array-keys = true
+check-throws = true
+unchecked-exceptions = ["Error", "LogicException"]
+unchecked-exception-classes = []
+check-missing-override = true
+find-unused-parameters = true
+strict-list-index-checks = true
+no-boolean-literal-comparison = true
+check-missing-type-hints = true
+register-super-globals = true
