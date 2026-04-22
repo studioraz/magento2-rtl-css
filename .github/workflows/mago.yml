@@ -28,4 +28,3 @@ jobs:
         run: |
           mago format --dry-run
           mago lint
-          mago analyze

@@ -75,15 +75,12 @@ class RtlCssPreprocessor implements PreProcessorInterface
             $content = $chain->getContent();
             $process = $this->rtlCssHandler->executeRtlCssCommand($content);
 
-            if ($process->isSuccessful()) {
-                // Get the RTL-converted content from the process output
-                $rtlContent = $process->getOutput();
-
-                // Set the new RTL content into the chain
-                $chain->setContent($rtlContent);
-            } else {
+            if (!$process->isSuccessful()) {
                 throw new Exception('RTL conversion failed: ' . $process->getErrorOutput());
             }
+
+            // Get the RTL-converted content from the process output and set it into the chain
+            $chain->setContent($process->getOutput());
         }
     }
 
