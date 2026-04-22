@@ -32,6 +32,7 @@ integrations = ["magento"]
 [linter.rules]
 ambiguous-function-call = { enabled = false }
 literal-named-argument = { enabled = false }
+excessive-parameter-list = { enabled = false }
 halstead = { effort-threshold = 7000 }
 
 [analyzer]
