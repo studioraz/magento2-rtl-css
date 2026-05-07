@@ -23,8 +23,8 @@ class RtlCssPreprocessor implements PreProcessorInterface
      * @param RtlCssHandler $rtlCssHandler
      */
     public function __construct(
-        private readonly RtlCssHandler $_rtlCssHandler,
-        private readonly LocaleWritingDirectionService $_localeWritingDirectionService,
+        private readonly RtlCssHandler $rtlCssHandler,
+        private readonly LocaleWritingDirectionService $localeWritingDirectionService,
     ) {}
 
     /**
