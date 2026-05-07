@@ -19,13 +19,21 @@ use SR\RTLCss\Service\RtlCssHandler;
 
 class RtlCssPreprocessor implements PreProcessorInterface
 {
+
+    protected $rtlCssHandler;
+    protected $localeWritingDirectionService;
+
     /**
-     * @param RtlCssHandler $rtlCssHandler
+     * @param RtlCssHandler $_rtlCssHandler
+     * @param LocaleWritingDirectionService $_localeWritingDirectionService
      */
     public function __construct(
-        private readonly RtlCssHandler $rtlCssHandler,
-        private readonly LocaleWritingDirectionService $localeWritingDirectionService,
-    ) {}
+        RtlCssHandler $_rtlCssHandler,
+        LocaleWritingDirectionService $_localeWritingDirectionService
+    ) {
+        $this->rtlCssHandler = $_rtlCssHandler;
+        $this->localeWritingDirectionService = $_localeWritingDirectionService;
+    }
 
     /**
      * @param Chain $chain
