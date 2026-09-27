@@ -10,4 +10,7 @@
     <type name="Hyva\Theme\ViewModel\SvgIcons">
         <plugin name="rtl-icons" type="SR\RTLCss\Plugin\Hyva\Theme\ViewModel\SvgIconsPlugin"/>
     </type>
+    <type name="Magento\Framework\View\Result\Page">
+        <plugin name="rtl-html-dir" type="SR\RTLCss\Plugin\Framework\View\Result\PagePlugin"/>
+    </type>
 </config>
