@@ -44,7 +44,7 @@ class PagePlugin
         $this->pageConfig->setElementAttribute(
             Config::ELEMENT_TYPE_HTML,
             LocaleWritingDirectionService::HTML_ATTRIBUTE_DIR,
-            $this->rtlManager->getStoreViewContentDirection()
+            $this->rtlManager->getStoreViewContentDirection(),
         );
 
         return null;

@@ -19,7 +19,6 @@ use SR\RTLCss\Service\RtlCssHandler;
 
 class RtlCssPreprocessor implements PreProcessorInterface
 {
-
     /**
      * @param RtlCssHandler $rtlCssHandler
      * @param LocaleWritingDirectionService $localeWritingDirectionService
